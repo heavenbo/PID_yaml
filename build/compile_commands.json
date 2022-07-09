@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/boyheaven/Vscode/work/camera/PID/build",
+  "command": "/usr/bin/g++   -I../include -isystem /usr/local/opencv4_5_5/include/opencv4  -g   -std=c++11 -o CMakeFiles/PID.dir/src/main.cpp.o -c /home/boyheaven/Vscode/work/camera/PID/src/main.cpp",
+  "file": "/home/boyheaven/Vscode/work/camera/PID/src/main.cpp"
+}
+]
