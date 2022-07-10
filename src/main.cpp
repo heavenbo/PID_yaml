@@ -72,6 +72,6 @@ int main()
         sleep(0.04);
     }
     cv::destroyAllWindows(); //破坏窗口
-    cap.release();           //释放内存/////
+    cap.release();           //释放内存
     return 0;
 }
