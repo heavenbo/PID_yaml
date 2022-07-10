@@ -1,0 +1,3 @@
+/home/boyheaven/Vscode/work/camera/PID/build/CMakeFiles/rebuild_cache.dir
+/home/boyheaven/Vscode/work/camera/PID/build/CMakeFiles/edit_cache.dir
+/home/boyheaven/Vscode/work/camera/PID/build/CMakeFiles/PID.dir
