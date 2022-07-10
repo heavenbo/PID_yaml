@@ -1,3 +1,4 @@
+#include <iostream>
 typedef struct
 {
 
@@ -35,16 +36,16 @@ void PIDController_Init(PIDController &pid)
 {
 
 	/* Clear controller variables */
-	pid.integrator = 0.0f;
-	pid.prevError = 0.0f;
+	pid.integrator = 0;
+	pid.prevError = 0;
 
-	pid.differentiator = 0.0f;
-	pid.prevMeasurement = 0.0f;
+	pid.differentiator = 0;
+	pid.prevMeasurement = 0.;
 
 	pid.out = 0.0f;
 }
 
-float PIDController_Update(PIDController &pid, float setpoint, float measurement,double coff)
+void PIDController_Update(PIDController &pid, float setpoint, float measurement,double coff)
 {
 
 	/*
@@ -55,7 +56,7 @@ float PIDController_Update(PIDController &pid, float setpoint, float measurement
 	/*
 	 * Proportional
 	 */
-	float proportional = pid.Kp * error;
+	double proportional = pid.Kp * error;
 
 	/*
 	 * Integral
@@ -101,9 +102,6 @@ float PIDController_Update(PIDController &pid, float setpoint, float measurement
 	/* Store error and measurement for later use */
 	pid.differentiator = error;
 	pid.prevMeasurement = measurement;
-
-	/* Return controller output */
-	return pid.out;
 }
 void print_PID(const PIDController &pid)
 {

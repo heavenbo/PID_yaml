@@ -128,7 +128,7 @@ namespace color
                 int x = 0, y = 0;
                 for (int j = 0; j < 4; j++)
                 {
-                    cv::line(result_img,rect[j],rect[(j+1)%4],cv::Scalar(0,0,255));
+                    cv::line(result_img, rect[j], rect[(j + 1) % 4], cv::Scalar(0, 0, 255));
                     x = x + rect[j].x;
                     y = y + rect[j].y;
                 }
@@ -138,12 +138,13 @@ namespace color
             }
         }
     }
-    bool isstopped(double time,double limvel, const cv::Point2f &pre_cen, const cv::Point2f &cen)
+    bool isstopped(double time, double limvel, const cv::Point2f &pre_cen, const cv::Point2f &cen, double coff)
     {
-        int x_sub = pre_cen.x - cen.x;
-        int y_sub = pre_cen.y - cen.y;
-        double diatance = sqrt(pow(x_sub, 2) + pow(y_sub, 2));
-        if (diatance < limvel * time)
+        double x_sub = coff * (pre_cen.x - cen.x);
+        double y_sub = coff * (pre_cen.y - cen.y);
+        double distance = sqrt(pow(x_sub, 2) + pow(y_sub, 2));
+        std::cout << "distance=" << distance << std::endl;
+        if (distance < limvel * time)
         {
             return true;
         }

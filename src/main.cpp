@@ -21,6 +21,7 @@ void read_PID(const YAML::Node &pid_yaml, PIDController &pid)
 int main()
 {
     YAML::Node pid_yaml = YAML::LoadFile("../config/msg.yaml");
+    double coff = pid_yaml["coff"].as<double>();
     PIDController pid_x, pid_y;
     PIDController_Init(pid_x);
     PIDController_Init(pid_y);
@@ -42,10 +43,12 @@ int main()
         return 1;
     }
     cap >> img;
-    std::cout <<"img_x="<<img.cols<<"\timg_y="<<img.rows<<std::endl;
+    std::cout << "img_x=" << img.cols << "\timg_y=" << img.rows << std::endl;
     std::cout << "vel_x\t"
               << "vel_y" << std::endl;
-     while (1)
+    double T = pid_yaml["T"].as<double>();
+    double limvel = pid_yaml["limvel"].as<double>();
+    while (1)
     {
         prephoto_center = photo_center;
         int key_value = cv::waitKey(1);
@@ -60,15 +63,23 @@ int main()
         imshow("Video", result_img);
         if (appear)
         {
-            PIDController_Update(pid_x, photo_center.x, 320, pid_yaml["coff"].as<double>());
-            PIDController_Update(pid_y, photo_center.y, 240, pid_yaml["coff"].as<double>());
+            PIDController_Update(pid_x, photo_center.x, 320, coff);
+            PIDController_Update(pid_y, photo_center.y, 240, coff);
         }
         else
         {
-            pid_x.out = 0;
-            pid_y.out = 0;
+            PIDController_Init(pid_x);
+            PIDController_Init(pid_y);
         }
         std::cout << pid_x.out << "\t" << pid_y.out << std::endl;
+        if (color::isstopped(T, limvel, prephoto_center, photo_center, coff))
+        {
+            std::cout << "stopped!" << std::endl;
+        }
+        else
+        {
+            std::cout << "acted!" << std::endl;
+        }
         sleep(0.04);
     }
     cv::destroyAllWindows(); //破坏窗口
