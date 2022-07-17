@@ -6,6 +6,6 @@
 * 利用 yaml-cpp 读取  
 Node 是 yaml-cpp 中的核心概念，它用于存储解析后的 yaml 信息,可以利用以下读取参数  
 `YAML::Node config = YAML::LoadFile("../config.yaml");`  
-`int a=config["age"].as<int>();`
+`int a=config["age"].as<int>();`  
 这样可以读取config.yaml中的age的参数。  
 **注意：在头文件引用yaml.h后需要在CMakeList.txt文件中将可执行文件链接上libyaml-cpp.so**
