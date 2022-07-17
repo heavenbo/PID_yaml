@@ -9,3 +9,10 @@ Node 是 yaml-cpp 中的核心概念，它用于存储解析后的 yaml 信息,�
 `int a=config["age"].as<int>();`  
 这样可以读取config.yaml中的age的参数。  
 **注意：在头文件引用yaml.h后需要在CMakeList.txt文件中将可执行文件链接上libyaml-cpp.so**
+##  PID
+pid的参数中有ki(积分)，kd(微分)，kp(误差)，调整顺序如下：  
+* 调节Kp使发生1/4幅度的震荡，ki,kd均置零。  
+* 使得Kp变为原来的一半。  
+* 逐步增大Ki使得重新出现震荡。  
+* 调节Kd使系统稳定。  
+可以设定pid的输出的极值使系统不至于失控。
